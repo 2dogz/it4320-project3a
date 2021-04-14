@@ -26,7 +26,7 @@ def stocks():
                 #query the api using the form data
                 err = None
                 #print(unit)
-                getJsonPage(unit)
+                x = getJsonPage(unit)
                 #THIS IS WHERE YOU WILL CALL THE METHODS FROM THE CHARTS.PY FILE AND IMPLEMENT YOUR CODE
 
 
@@ -34,7 +34,7 @@ def stocks():
 
 
                 #This chart variable is what is passed to the stock.html page to render the chart returned from the api
-                chart = "ASSIGN CHART TO THIS VARIABLE"
+                chart = x
 
             return render_template("stock.html", form=form, template="form-template", err = err, chart = chart)
 

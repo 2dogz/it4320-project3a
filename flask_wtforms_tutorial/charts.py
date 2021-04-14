@@ -58,7 +58,7 @@ def reverseLists(opening, highs, lows, closing, dates):
     dates.reverse()
 
 def makeGraph(data, chartType, chartTimeSeries, chartStartDate, chartEndDate):
-    print(data)
+    #print(data)
     ticker = data['Meta Data']['2. Symbol']
 
     opening = []
@@ -69,9 +69,11 @@ def makeGraph(data, chartType, chartTimeSeries, chartStartDate, chartEndDate):
 
     labels = list(data)[1]
     dailyInformation = data[labels]
-
+    #print(chartStartDate)
+    #print(chartEndDate)
     for i in dailyInformation:
         date = str(i)
+        #print(date)
         # IF THE USER WANTS A GRAPH OF 1 DAY
         if chartStartDate == chartEndDate:
             # CHECK IF THE TIME SERIES IS SET TO INTRADAY
@@ -89,12 +91,13 @@ def makeGraph(data, chartType, chartTimeSeries, chartStartDate, chartEndDate):
 
     chart = pygal.Line()
     chart.x_labels = dates
+    print(dates)
     chart.add('Opening', opening)
     chart.add('High', highs)
     chart.add('Low', lows)
     chart.add('Closing', closing)
     #return render_template("stock.html", chart = chart.render())
-    print(chart.render())
+    return chart.render()
 
     # #line_chart.title = 'Stock Data for {}: {} to {} '.format(ticker, chartStartDate, chartEndDate)
     # # WE NEED TO REVERSE THE LISTS BECAUSE OUR LISTS ARE BACKWARDS AT THE MOMENT
@@ -114,7 +117,7 @@ def makeGraph(data, chartType, chartTimeSeries, chartStartDate, chartEndDate):
 def getJsonPage(info):
     # FIRST WE CALL userPrompt() WHICH RETURNS THE Symbol, chartType, chartTimeSeries , chartStartDate, chartEndDate
     #info = userPrompt()
-    print(info)
+    #print(info)
     #(symbol, chart_type, time_series, start_date, end_date)
     #('GOOGL', '2', '4', datetime.date(2021, 4, 1), datetime.date(2021, 4, 2))
 
@@ -152,6 +155,6 @@ def getJsonPage(info):
     # FINALLY, WE CHECK IF THERE WAS A STRING OF 'INVALID API CALL' IN THE RESPONSE
     # IF THERE IS WE PRINT AN ERROR MESSAGE INSTEAD OF BUILDING THE GRAPH IN BROWSER
     if 'Invalid API call' not in req.text:
-        makeGraph(data, chartType, chartTimeSeries, chartStartDate, chartEndDate)
+        return makeGraph(data, chartType, chartTimeSeries, chartStartDate, chartEndDate)
     else:
         print("The Ticker You Entered is Not in The API\n")
