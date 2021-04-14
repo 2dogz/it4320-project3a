@@ -1,6 +1,5 @@
 from flask import current_app as app
 from flask import redirect, render_template, url_for, request, flash
-
 from .forms import StockForm
 from .charts import *
 
@@ -26,7 +25,7 @@ def stocks():
             else:
                 #query the api using the form data
                 err = None
-                print(unit)
+                #print(unit)
                 getJsonPage(unit)
                 #THIS IS WHERE YOU WILL CALL THE METHODS FROM THE CHARTS.PY FILE AND IMPLEMENT YOUR CODE
 

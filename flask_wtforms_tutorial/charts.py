@@ -87,19 +87,27 @@ def makeGraph(data, chartType, chartTimeSeries, chartStartDate, chartEndDate):
             if chartStartDate < date < chartEndDate or chartEndDate in date:
                 createData(dailyInformation, date, opening, highs, lows, closing, dates, 0)
 
-    line_chart = chartType
-    line_chart.title = 'Stock Data for {}: {} to {} '.format(ticker, chartStartDate, chartEndDate)
-    # WE NEED TO REVERSE THE LISTS BECAUSE OUR LISTS ARE BACKWARDS AT THE MOMENT
-    reverseLists(opening, highs, lows, closing, dates)
-    line_chart.x_labels = dates
-    line_chart.add('Opening', opening)
-    line_chart.add('High', highs)
-    line_chart.add('Low', lows)
-    line_chart.add('Closing', closing)
-    if not dates:
-        print("There Was Not Data Available For Your Input")
-    else:
-        line_chart.render_in_browser()
+    chart = pygal.Line()
+    chart.x_labels = dates
+    chart.add('Opening', opening)
+    chart.add('High', highs)
+    chart.add('Low', lows)
+    chart.add('Closing', closing)
+    #return render_template("stock.html", chart = chart.render())
+    print(chart.render())
+
+    # #line_chart.title = 'Stock Data for {}: {} to {} '.format(ticker, chartStartDate, chartEndDate)
+    # # WE NEED TO REVERSE THE LISTS BECAUSE OUR LISTS ARE BACKWARDS AT THE MOMENT
+    # reverseLists(opening, highs, lows, closing, dates)
+    # line_chart.x_labels = dates
+    # line_chart.add('Opening', opening)
+    # line_chart.add('High', highs)
+    # line_chart.add('Low', lows)
+    # line_chart.add('Closing', closing)
+    # if not dates:
+    #     print("There Was Not Data Available For Your Input")
+    # else:
+    #     line_chart.render_in_browser()
 
 
 # THE PURPOSE OF THE getJsonPage FUNCTION IS TO RUN THE PROGRAM

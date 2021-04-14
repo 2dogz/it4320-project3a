@@ -14,7 +14,7 @@ def do_this():
             j = resource.read()
             for i in j:
                 ticker = i[0]
-                msg = '{}, {}'.format(ticker, ticker)
+                msg = '({}, {}),'.format(ticker, ticker)
                 print (msg)
                 #y = '{} {}'.format(x,x)
             #return y
