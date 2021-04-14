@@ -89,7 +89,9 @@ def makeGraph(data, chartType, chartTimeSeries, chartStartDate, chartEndDate):
             if chartStartDate < date < chartEndDate or chartEndDate in date:
                 createData(dailyInformation, date, opening, highs, lows, closing, dates, 0)
 
-    chart = pygal.Line()
+    chart = chartType
+    reverseLists(opening, highs, lows, closing, dates)
+    chart.title = 'Stock Data for {}: {} to {} '.format(ticker, chartStartDate, chartEndDate)
     chart.x_labels = dates
     print(dates)
     chart.add('Opening', opening)
@@ -101,7 +103,7 @@ def makeGraph(data, chartType, chartTimeSeries, chartStartDate, chartEndDate):
 
     # #line_chart.title = 'Stock Data for {}: {} to {} '.format(ticker, chartStartDate, chartEndDate)
     # # WE NEED TO REVERSE THE LISTS BECAUSE OUR LISTS ARE BACKWARDS AT THE MOMENT
-    # reverseLists(opening, highs, lows, closing, dates)
+    #
     # line_chart.x_labels = dates
     # line_chart.add('Opening', opening)
     # line_chart.add('High', highs)
@@ -126,9 +128,9 @@ def getJsonPage(info):
 
     # THOSE VARIABLES ARE BROKEN DOWN INTO API ENDPOINT COMPONENTS
     # E.G (TIME_SERIES_INTRADAY,TIME_SERIES_DAILY) OR THEIR RESPECTIVE DATES TO BE LOOKED FOR WITHIN THE API RESULTS
-    chartType = info[1]
-    if chartType == 1: chartType = pygal.Bar(x_label_rotation=-45, x_labels_major_every=1, show_minor_x_labels=False)
-    elif chartType == 2: chartType = pygal.Line(x_label_rotation=-45, x_labels_major_every=1, show_minor_x_labels=False)
+    chartType = int(info[1])
+    if chartType == 1: chartType = pygal.Bar(x_label_rotation=-45)
+    elif chartType == 2: chartType = pygal.Line(x_label_rotation=-45)
 
 
     intraDayInfo = "&interval=30min"
