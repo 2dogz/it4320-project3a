@@ -27,7 +27,6 @@ def do_this_2():
             if '.' not in ticker:
                 choicesList.append(msg)
     return choicesList
-print(do_this_2())
 
 def validate(date_info):
     try:
