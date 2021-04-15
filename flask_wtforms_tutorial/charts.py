@@ -16,6 +16,19 @@ apikey = "O1RSZBGP6WA65EAI"
 def convert_date(str_date):
     return datetime.strptime(str_date, '%Y-%m-%d').date()
 
+def do_this_2():
+    c = 0
+    choicesList = []
+    data = requests.get('https://pkgstore.datahub.io/core/nyse-other-listings/nyse-listed_json/data/e8ad01974d4110e790b227dc1541b193/nyse-listed_json.json').json()
+    for d in data:
+        ticker = d['ACT Symbol']
+        msg = (ticker, ticker)
+        if '$' not in ticker:
+            if '.' not in ticker:
+                choicesList.append(msg)
+    return choicesList
+print(do_this_2())
+
 def validate(date_info):
     try:
         dateRegex = '^[0-9]{4}.(1[0-2]|0[1-9]).(3[01]|[12][0-9]|0[1-9])'
@@ -93,35 +106,17 @@ def makeGraph(data, chartType, chartTimeSeries, chartStartDate, chartEndDate):
     reverseLists(opening, highs, lows, closing, dates)
     chart.title = 'Stock Data for {}: {} to {} '.format(ticker, chartStartDate, chartEndDate)
     chart.x_labels = dates
-    print(dates)
     chart.add('Opening', opening)
     chart.add('High', highs)
     chart.add('Low', lows)
     chart.add('Closing', closing)
-    #return render_template("stock.html", chart = chart.render())
     return chart.render()
 
-    # #line_chart.title = 'Stock Data for {}: {} to {} '.format(ticker, chartStartDate, chartEndDate)
-    # # WE NEED TO REVERSE THE LISTS BECAUSE OUR LISTS ARE BACKWARDS AT THE MOMENT
-    #
-    # line_chart.x_labels = dates
-    # line_chart.add('Opening', opening)
-    # line_chart.add('High', highs)
-    # line_chart.add('Low', lows)
-    # line_chart.add('Closing', closing)
-    # if not dates:
-    #     print("There Was Not Data Available For Your Input")
-    # else:
-    #     line_chart.render_in_browser()
 
 
 # THE PURPOSE OF THE getJsonPage FUNCTION IS TO RUN THE PROGRAM
 def getJsonPage(info):
-    # FIRST WE CALL userPrompt() WHICH RETURNS THE Symbol, chartType, chartTimeSeries , chartStartDate, chartEndDate
-    #info = userPrompt()
-    #print(info)
-    #(symbol, chart_type, time_series, start_date, end_date)
-    #('GOOGL', '2', '4', datetime.date(2021, 4, 1), datetime.date(2021, 4, 2))
+    # FIRST WE PASS info WHICH CONTAINS THE Symbol, chartType, chartTimeSeries , chartStartDate, chartEndDate
 
     # THEN WE ASSIGN VARIABLES BY THE TUPLE INDEX
     symbol = info[0]

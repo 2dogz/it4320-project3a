@@ -12,15 +12,20 @@ from datetime import date
 from wtforms.fields.html5 import DateField
 from wtforms.validators import URL, DataRequired, Email, EqualTo, Length
 
+from .charts import do_this_2
+
 class StockForm(FlaskForm):
     """Generate Your Graph."""
-    
+
     #THIS IS WHERE YOU WILL IMPLEMENT CODE TO POPULATE THE SYMBOL FIELD WITH STOCK OPTIONS
+    newChoices = do_this_2()
+
     symbol = SelectField("Choose Stock Symbol",[DataRequired()],
-        choices=[
-            ("IBM", "IBM"),
-            ("GOOGL", "GOOGL"),
-        ],
+        choices = newChoices
+        # choices=[
+        #     ("IBM", "IBM"),
+        #     ("GOOGL", "GOOGL"),
+        # ],
     )
 
     chart_type = SelectField("Select Chart Type",[DataRequired()],
@@ -42,6 +47,3 @@ class StockForm(FlaskForm):
     start_date = DateField("Enter Start Date")
     end_date = DateField("Enter End Date")
     submit = SubmitField("Submit")
-
-
-

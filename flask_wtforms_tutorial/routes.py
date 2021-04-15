@@ -27,7 +27,7 @@ def stocks():
                 err = None
                 #print(unit)
                 x = getJsonPage(unit)
-                print(x)
+                #print(x)
                 #THIS IS WHERE YOU WILL CALL THE METHODS FROM THE CHARTS.PY FILE AND IMPLEMENT YOUR CODE
 
 
